@@ -1152,7 +1152,28 @@
     }
     addLetters(leadingText);
     addLetters(wineText, 'var(--wine)');
-  })();</script>
+  })();  // Acordeón de áreas de práctica
+  document.querySelectorAll('.area-toggle').forEach(toggle => {
+    const panel = toggle.nextElementSibling;
+    function openPanel(){
+      toggle.setAttribute('aria-expanded','true');
+      panel.classList.add('open');
+    }
+    function closePanel(){
+      toggle.setAttribute('aria-expanded','false');
+      panel.classList.remove('open');
+    }
+    toggle.addEventListener('click', () => {
+      const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+      isOpen ? closePanel() : openPanel();
+    });
+    toggle.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggle.click();
+      }
+    });
+  });</script>
 
 </body>
 </html>
