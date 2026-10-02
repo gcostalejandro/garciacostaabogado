@@ -120,6 +120,18 @@
 @media (prefers-reduced-motion:reduce){
   .brand-logo-img{animation:none;}
 }
+  .letter-reveal{
+  display:inline-block;
+  opacity:0;
+  transform:translateY(10px);
+  animation:letter-in .5s ease forwards;
+}
+@keyframes letter-in{
+  to{opacity:1;transform:translateY(0);}
+}
+@media (prefers-reduced-motion:reduce){
+  .letter-reveal{animation:none;opacity:1;transform:none;}
+}
   .brand-logo{height:46px;width:auto;display:block;}
 
   nav.links{display:flex;gap:40px;align-items:center;}
@@ -1059,7 +1071,37 @@
     if (e.key === 'Escape') {
       document.querySelectorAll('.legal-modal-overlay.open').forEach(o => o.classList.remove('open'));
     }
-  });</script>
+  });
+  // Animación del nombre letra a letra
+  (function(){
+    const brand = document.querySelector('header .brand-name');
+    if (!brand) return;
+    const innerSpan = brand.querySelector('span');
+    const wineText = innerSpan ? innerSpan.textContent : '';
+    let leadingText = '';
+    brand.childNodes.forEach(n => {
+      if (n.nodeType === 3) leadingText += n.textContent;
+    });
+    brand.textContent = '';
+    let i = 0;
+    function addLetters(text, color) {
+      for (const ch of text) {
+        if (ch === ' ') {
+          brand.appendChild(document.createTextNode(' '));
+        } else {
+          const span = document.createElement('span');
+          span.textContent = ch;
+          span.className = 'letter-reveal';
+          span.style.animationDelay = (i * 0.045) + 's';
+          if (color) span.style.color = color;
+          brand.appendChild(span);
+          i++;
+        }
+      }
+    }
+    addLetters(leadingText);
+    addLetters(wineText, 'var(--wine)');
+  })();</script>
 
 </body>
 </html>
