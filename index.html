@@ -1,5 +1,19 @@
 <!DOCTYPE html>
 <html lang="es">
+  <style>
+/* Menú en dos filas (solo ordenador) */
+@media (min-width: 901px) {
+  header#siteHeader .nav-inner { height: auto; flex-wrap: wrap; align-items: center; padding-top: 12px; padding-bottom: 14px; row-gap: 12px; }
+  header#siteHeader .nav-inner > .brand { order: 1; }
+  header#siteHeader .nav-inner > .nav-actions { order: 2; margin-left: auto; }
+  header#siteHeader .nav-inner > nav.links { order: 3; flex: 0 0 100%; width: 100%; justify-content: center; gap: 12px; }
+  header#siteHeader .nav-inner > nav.links a { background: var(--wine); color: var(--nude-50); padding: 11px 26px; border-radius: var(--radius); font-size: 13px; letter-spacing: 0.06em; transition: background .3s var(--ease), transform .3s var(--ease); }
+  header#siteHeader .nav-inner > nav.links a::after { display: none; }
+  header#siteHeader .nav-inner > nav.links a:hover { background: var(--wine-dark); color: var(--nude-50); transform: translateY(-2px); }
+}
+/* Evita que la cabecera tape los títulos al pulsar un enlace del menú */
+html { scroll-padding-top: 30px; }
+</style>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
